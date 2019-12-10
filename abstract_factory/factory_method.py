@@ -17,40 +17,40 @@ class ConcreteProductB(Product):
         print('This is a Product B')
 
 
-class Customer(metaclass=ABCMeta):
+class Creator(metaclass=ABCMeta):
     def __init__(self):
         self.product = None
-        self.create_product()
+        self.factory_method()
 
     @abstractmethod
-    def create_product(self):
+    def factory_method(self):
         pass
 
     def get_product(self):
         return self.product
 
 
-class ConcreteCustomerA(Customer):
-    def create_product(self):
+class ConcreteCreatorA(Creator):
+    def factory_method(self):
         self.product = ConcreteProductA()
 
 
-class ConcreteCustomerB(Customer):
-    def create_product(self):
+class ConcreteCreatorB(Creator):
+    def factory_method(self):
         self.product = ConcreteProductB()
 
 
 # If a new customer that likes ConcreteProductB needs to be added...
-class ConcreteCustomerC(Customer):
+class ConcreteCreatorC(Creator):
     # With abstract method, the Open/Closed principle is respected.
-    def create_product(self):
+    def factory_method(self):
         self.product = ConcreteProductB()
 
 
 if __name__ == '__main__':
-    customerA = ConcreteCustomerA()
-    customerB = ConcreteCustomerB()
-    customerC = ConcreteCustomerC()
+    customerA = ConcreteCreatorA()
+    customerB = ConcreteCreatorB()
+    customerC = ConcreteCreatorC()
 
     assert type(customerA.get_product()) == ConcreteProductA
     assert type(customerB.get_product()) == ConcreteProductB
